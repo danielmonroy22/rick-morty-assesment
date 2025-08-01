@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+/* loader */
+.spinner {
+  width: 3em;
+  height: 3em;
+  cursor: not-allowed;
+  border-radius: 50%;
+  border: 2px solid #444;
+  box-shadow: -10px -10px 10px #6359f8, 0px -10px 10px 0px #9c32e2, 10px -10px 10px #f36896, 10px 0 10px #ff0b0b, 10px 10px 10px 0px#ff5500, 0 10px 10px 0px #ff9500, -10px 10px 10px 0px #ffb700;
+  animation: rot55 0.7s linear infinite;
+}
+
+.spinnerin {
+  border: 2px solid #444;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes rot55 {
+  to {
+    transform: rotate(360deg);
+  }
+}
+/* end of loader */
+
+
+:root {
+  --primary-100: #EEE3FF;
+  --primary-600: #8054C7;
+  --primary-700: #5A3696;
+  --secondary-600: #63D838;
+}
+@layer base {
+  :root {
+    --tw-primary-100: var(--primary-100);
+    --tw-primary-600: var(--primary-600);
+    --tw-primary-700: var(--primary-700);
+    --tw-secondary-600: var(--secondary-600);
+  }
+}
+@layer utilities {
+  .bg-primary-100 {
+    background-color: var(--tw-primary-100) !important;
+  }
+  .bg-primary-600 {
+    background-color: var(--tw-primary-600) !important;
+  }
+  .bg-primary-700 {
+    background-color: var(--tw-primary-700) !important;
+  }
+  .bg-secondary-600 {
+    background-color: var(--tw-secondary-600) !important;
+  }
+  .text-primary-100 {
+    color: var(--tw-primary-100) !important;
+  }
+  .text-primary-600 {
+    color: var(--tw-primary-600) !important;
+  }
+  .text-primary-700 {
+    color: var(--tw-primary-700) !important;
+  }
+  .text-secondary-600 {
+    color: var(--tw-secondary-600) !important;
+  }
+}
