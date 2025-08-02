@@ -1,26 +1,27 @@
-
-
-import SideBar from '../components/SideBar';
+import React from "react";
+import CharacterInfo from "../components/CharacterInfo";
+import SideBar from "../components/SideBar";
 
 const Home = () => {
-  
+  const [characterSelected, setCharacterSelected] = React.useState<string | null>(null);
 
   return (
-    <div style={{ display: 'flex', gap: '2rem' }}>
-        {/* sidebar */}
-        <SideBar />
-      {/* end of sidebar */}
-
-      {/* content */}
-      <div style={{ flex: 1, padding: '1rem' }}>
-      <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-        <h1>Rick and Morty Characters</h1>
-        <p>Explore the universe of Rick and Morty!</p>
-        </div>
+    <div className="flex flex-col lg:flex-row min-h-screen">
+      {/* Sidebar - full width on mobile, 1/3 on desktop */}
+      <div className="w-full lg:w-[375px] border-b lg:border-b-0 lg:border-r">
+        <SideBar
+          characterSelected={characterSelected}
+          onCharacterSelect={(id) => setCharacterSelected(id)}
+        />
       </div>
-      {/* end of content */}
+
+      {/* Content - full width on mobile, 2/3 on desktop */}
+      <div className="w-full lg:w-2/3">
+        <CharacterInfo characterSelected={characterSelected} />
+      </div>
     </div>
   );
 };
 
 export default Home;
+
