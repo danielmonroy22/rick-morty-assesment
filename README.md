@@ -1,69 +1,106 @@
-# React + TypeScript + Vite
+### Rick and Morty Character Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a React + TypeScript application that allows users to explore characters from the Rick and Morty universe. It integrates with the public Rick and Morty GraphQL API to fetch and display character data.
 
-Currently, two official plugins are available:
+### Features
+🔍 Search characters by name
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🎯 Filter by character status and species
 
-## Expanding the ESLint configuration
+❤️ Mark characters as favorites (stored locally)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+📱 Responsive design for desktop and mobile
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+⚡ Powered by Vite, Apollo Client, and Tailwind CSS
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### Tech Stack
+Frontend Framework: React
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Language: TypeScript
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+GraphQL Client: Apollo Client
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Styling: Tailwind CSS
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Bundler: Vite
+
+### API: Rick and Morty GraphQL API
+
+## Installation & Setup
+1. Clone the repository
+git clone https://github.com/danielmonroy22/rick-morty-assesment.git
+cd rick-morty-assesment
+2. Install dependencies
+npm install
+3. Start the development server
+npm run dev
+The app will be available at: http://localhost:5173
+
+📡 How the API Works
+This app uses the Rick and Morty GraphQL API, which allows you to:
+
+Fetch characters with filters (by name, status, species)
+
+Get character details including image, location, species, and origin
+
+Example GraphQL query used:
+
+graphql
+1. 
+- this query is used to retrieve the charcaters from the api in page 1
+query {
+    characters(page: 1) {
+      results {
+        id
+        name
+        species
+        image
+      }
+    }
+  }
+2. 
+- this query is used to get the charcater by the name whe using the search input  
+ query GetCharacter($name: String!) {
+    characters(filter: { name: $name }) {
+      results {
+        id
+        name
+        species
+        image
+      }
+    }
+  }
+3. 
+- this query is used to retrieve character data based on the id
+
+  export const GET_CHARACTER_BY_ID = gql`
+  query GetCharacter($id: ID!) {
+    character(id: $id) {
+      id
+      name
+      status
+      species
+      type
+      gender
+      image
+      origin {
+        name
+      }
+      location {
+        name
+      }
+    }
+  }
+`;
+
+
+### Development Notes
+Vite is used for blazing-fast development and hot module replacement.
+
+Apollo Client handles GraphQL queries and caching.
+
+Tailwind CSS is used for styling and layout.
+
+Favorite characters are stored using localStorage for persistence between sessions.
+
+Comments on characters are also saved per character in local storage.
