@@ -24,7 +24,30 @@ const AdjustmentsMenu: React.FC<FilterPanelProps> = ({ onFilter, setOpenAdjustme
       
 
   return (
-    <div className="bg-white w-[330px] rounded-md shadow-md p-6 absolute mb-4 h-[278px] flex flex-col gap-6">
+    <div className="bg-white lg:w-[330px] w-full h-full top-0 lg:top-36 left-0 lg:left-4 rounded-md shadow-md p-6 absolute mb-4 lg:h-[278px] flex flex-col gap-6">
+      {/* filters text for mobile view */}
+      <div className="w-full lg:hidden text-center relative" onClick={() => setOpenAdjustments(!openAdjustments)}>
+      <button className="pb-5 absolute left-0 top-0" >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="none"
+          stroke="#8054C7"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="feather feather-arrow-left"
+        >
+          <line x1="19" y1="12" x2="5" y2="12" />
+          <polyline points="12 19 5 12 12 5" />
+        </svg>
+      </button>
+      {/* end of filter text in mobile view */}
+        
+        Filters
+        
+      </div>
       {/* Character */}
       <div className="flex flex-col gap-2">
         <p className="text-[#6B7280] font-medium text-sm">Character</p>
@@ -62,12 +85,14 @@ const AdjustmentsMenu: React.FC<FilterPanelProps> = ({ onFilter, setOpenAdjustme
       </div>
 
       {/* Filter Button */}
+      <div className="flex flex-col justify-end lg:justify-start w-full h-full">
       <button
         onClick={handleFilterClick}
-        className={`text-white font-medium rounded-lg py-2 transition-colors duration-300 bg-primary-600 cursor-pointer`}
+        className={`text-white w-full font-medium rounded-lg py-2 transition-colors duration-300 bg-primary-600 cursor-pointer`}
       >
         Filter
       </button>
+      </div>
     </div>
   );
 };

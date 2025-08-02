@@ -1,13 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import CharacterInfo from "../components/CharacterInfo";
 import SideBar from "../components/SideBar";
 
 const Home = () => {
-  const [characterSelected, setCharacterSelected] = React.useState<string | null>(null);
-  const [characterInfoOpen, setCharacterInfoOpen] = React.useState<boolean>(false);
+  interface Character {
+    id: string;
+    name: string;
+    image: string;
+    species: string;
+  }
+
+  const [characterSelected, setCharacterSelected] = React.useState<
+    string | null
+  >(null);
+  const [characterInfoOpen, setCharacterInfoOpen] =
+    React.useState<boolean>(false);
+  const [starredCharacters, setStarredCharacters] = useState<Character[]>([]);
 
   const closeCharacterInfo = () => {
     setCharacterInfoOpen(false);
+  };
+
+  const toggleStarredCharacter = (character: Character) => {
+    setStarredCharacters((prev) => {
+      const isAlreadyStarred = prev.some((c) => c.id === character.id);
+      return isAlreadyStarred
+        ? prev.filter((c) => c.id !== character.id)
+        : [...prev, character];
+    });
   };
 
   return (
@@ -20,6 +40,8 @@ const Home = () => {
             setCharacterSelected(id);
             setCharacterInfoOpen(true); // Open character info when a character is selected
           }}
+          toggleStarredCharacter={toggleStarredCharacter}
+          starredCharacters={starredCharacters}
         />
       </div>
 
@@ -31,11 +53,15 @@ const Home = () => {
       />
 
       <div
-        className={`fixed right-0 top-0 w-3/4 bg-white h-full shadow-lg transition-transform transform ${
+        className={`fixed right-0 top-0 w-full bg-white h-screen shadow-lg transition-transform transform ${
           characterInfoOpen ? "translate-x-0" : "translate-x-full"
         } lg:relative lg:block lg:translate-x-0`}
       >
-        <CharacterInfo closecharacterinfo={closeCharacterInfo} characterSelected={characterSelected} />
+        <CharacterInfo
+  closecharacterinfo={closeCharacterInfo}
+  characterSelected={characterSelected}
+  starredCharacters={starredCharacters}
+/>
       </div>
     </div>
   );

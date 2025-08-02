@@ -5,25 +5,30 @@ import { GET_CHARACTER, GET_CHARACTERS } from "../graphql/queries";
 import AdjustmentsMenu from "./AdjustmentsMenu";
 import SearchBar from "./SearchBar";
 import Loader from "./Loader";
-
+interface Character {
+  id: string;
+  name: string;
+  image: string;
+  species: string;
+}
 interface SideBarProps {
   onCharacterSelect: (characterId: string) => void;
   characterSelected?: string | null;
+  starredCharacters: Character[];
+  toggleStarredCharacter: (char: Character) => void;
 }
 
 const SideBar: React.FC<SideBarProps> = ({
   onCharacterSelect,
   characterSelected,
+  starredCharacters,
+  toggleStarredCharacter,
+
 }) => {
-  interface Character {
-    id: string;
-    name: string;
-    image: string;
-    species: string;
-  }
+  
   // call get_characters query to get all characters
   const { loading, error, data } = useQuery(GET_CHARACTERS);
-  const [starredCharacters, setStarredCharacters] = useState<Character[]>([]);
+
   const [searchTerm, setSearchTerm] = useState("");
   const [openAdjustments, setOpenAdjustments] = useState(false);
   const [filters, setFilters] = useState({ character: "All", specie: "All" });
@@ -38,16 +43,7 @@ const SideBar: React.FC<SideBarProps> = ({
   const [getCharacters, { data: charactersData, loading: charactersLoading }] =
     useLazyQuery(GET_CHARACTER);
 
-  const toggleStarredCharacter = (character: Character) => {
-    setStarredCharacters((prev) => {
-      const isAlreadyStarred = prev.some((c) => c.id === character.id);
-      if (isAlreadyStarred) {
-        return prev.filter((c) => c.id !== character.id);
-      } else {
-        return [...prev, character];
-      }
-    });
-  };
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
