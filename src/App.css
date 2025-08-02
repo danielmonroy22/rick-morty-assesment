@@ -310,3 +310,10 @@
     color: var(--tw-secondary-600) !important;
   }
 }
+
+.transition-transform {
+  transition: transform 0.3s ease-in-out;
+}
+.transition-opacity {
+  transition: opacity 0.3s ease-in-out;
+}

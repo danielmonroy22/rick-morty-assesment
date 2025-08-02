@@ -5,9 +5,10 @@ import Loader from "./Loader";
 
 interface CharacterInfoProps {
   characterSelected?: string | null;
+  closecharacterinfo?: () => void;
 }
 
-const CharacterInfo: React.FC<CharacterInfoProps> = ({ characterSelected }) => {
+const CharacterInfo: React.FC<CharacterInfoProps> = ({ characterSelected, closecharacterinfo }) => {
   const { loading, error, data } = useQuery(GET_CHARACTER_BY_ID, {
     variables: { id: characterSelected },
     skip: !characterSelected, 
@@ -36,9 +37,26 @@ const CharacterInfo: React.FC<CharacterInfoProps> = ({ characterSelected }) => {
 
   return (
     <div
-      className="w-full h-full "
-      style={{ padding: "40px 100px 16px 100px" }}
-    >
+  className="w-full h-full px-10 pt-6 pb-4 lg:px-[100px] lg:pt-[40px] lg:pb-[16px]"
+>
+    {/* mobile view arrow button */}
+    <button className="pb-5 lg:hidden" onClick={closecharacterinfo}>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    fill="none"
+    stroke="#8054C7"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="feather feather-arrow-left"
+  >
+    <line x1="19" y1="12" x2="5" y2="12" />
+    <polyline points="12 19 5 12 12 5" />
+  </svg>
+</button>
+
       {/* profile pic and name */}
       <div className="w-full flex flex-col " style={{ gap: "8px" }}>
         {/* profile pic */}
