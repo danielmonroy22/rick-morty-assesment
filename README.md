@@ -115,6 +115,4 @@ Apollo Client handles GraphQL queries and caching.
 
 Tailwind CSS is used for styling and layout.
 
-Favorite characters are stored using localStorage for persistence between sessions.
-
 Comments on characters are also saved per character in local storage.
