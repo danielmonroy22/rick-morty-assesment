@@ -28,13 +28,13 @@ Bundler: Vite
 
 ## Installation & Setup
 1. Clone the repository
-git clone https://github.com/danielmonroy22/rick-morty-assesment.git
-cd rick-morty-assesment
+## git clone https://github.com/danielmonroy22/rick-morty-assesment.git
+## cd rick-morty-assesment
 2. Install dependencies
-npm install
+## npm install
 3. Start the development server
-npm run dev
-The app will be available at: http://localhost:5173
+## npm run dev
+## The app will be available at: http://localhost:5173
 
 📡 How the API Works
 This app uses the Rick and Morty GraphQL API, which allows you to:
