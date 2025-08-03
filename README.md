@@ -1,8 +1,8 @@
-### Rick and Morty Character Explorer
+# Rick and Morty Character Explorer
 
 This is a React + TypeScript application that allows users to explore characters from the Rick and Morty universe. It integrates with the public Rick and Morty GraphQL API to fetch and display character data.
 
-### Features
+## Features
 🔍 Search characters by name
 
 🎯 Filter by character status and species
@@ -13,7 +13,7 @@ This is a React + TypeScript application that allows users to explore characters
 
 ⚡ Powered by Vite, Apollo Client, and Tailwind CSS
 
-### Tech Stack
+## Tech Stack
 Frontend Framework: React
 
 Language: TypeScript
@@ -24,17 +24,19 @@ Styling: Tailwind CSS
 
 Bundler: Vite
 
-### API: Rick and Morty GraphQL API
 
 ## Installation & Setup
 1. Clone the repository
-## git clone https://github.com/danielmonroy22/rick-morty-assesment.git
-## cd rick-morty-assesment
+- git clone https://github.com/danielmonroy22/rick-morty-assesment.git
+- cd rick-morty-assesment
 2. Install dependencies
-## npm install
+- npm install
 3. Start the development server
-## npm run dev
-## The app will be available at: http://localhost:5173
+- npm run dev
+### The app will be available at: http://localhost:5173
+
+
+## API: Rick and Morty GraphQL API
 
 📡 How the API Works
 This app uses the Rick and Morty GraphQL API, which allows you to:
@@ -48,7 +50,7 @@ Example GraphQL query used:
 graphql
 1. 
 - this query is used to retrieve the charcaters from the api in page 1
-query {
+` query {
     characters(page: 1) {
       results {
         id
@@ -57,7 +59,7 @@ query {
         image
       }
     }
-  }
+  } `
 2. 
 - this query is used to get the charcater by the name whe using the search input  
  query GetCharacter($name: String!) {
