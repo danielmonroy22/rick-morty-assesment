@@ -58,8 +58,7 @@ graphql
           species 
           image } } } 
 ``` 
-2. 
-- this query is used to get the charcater by the name whe using the search input  
+2. this query is used to get the charcater by the name whe using the search input  
 ```
  query GetCharacter($name: String!) {
     characters(filter: { name: $name }) {
@@ -72,8 +71,7 @@ graphql
     }
   }
  ``` 
-3. 
-- this query is used to retrieve character data based on the id
+3. this query is used to retrieve character data based on the id
 ```
 
   query GetCharacter($id: ID!) {
