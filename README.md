@@ -5,9 +5,9 @@ This is a React + TypeScript application that allows users to explore characters
 ## Features
 🔍 Search characters by name
 
-🎯 Order the Characters by ascending or descending order
+✅ Order the characters in ascending or descending order
 
-🎯 Choose the page where you want to get the charcaters from
+🎯 Select the page number to fetch characters from
 
 🎯 Filter by character status and species
 
