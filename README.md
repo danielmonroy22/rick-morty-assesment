@@ -60,6 +60,7 @@ graphql
 ``` 
 2. 
 - this query is used to get the charcater by the name whe using the search input  
+```
  query GetCharacter($name: String!) {
     characters(filter: { name: $name }) {
       results {
@@ -70,10 +71,11 @@ graphql
       }
     }
   }
+ ``` 
 3. 
 - this query is used to retrieve character data based on the id
+```
 
-  export const GET_CHARACTER_BY_ID = gql`
   query GetCharacter($id: ID!) {
     character(id: $id) {
       id
@@ -91,10 +93,12 @@ graphql
       }
     }
   }
-`;
+;
+
+```
 
 
-### Development Notes
+## Development Notes
 Vite is used for blazing-fast development and hot module replacement.
 
 Apollo Client handles GraphQL queries and caching.
