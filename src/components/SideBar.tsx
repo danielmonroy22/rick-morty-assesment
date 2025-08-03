@@ -23,15 +23,21 @@ const SideBar: React.FC<SideBarProps> = ({
   characterSelected,
   starredCharacters,
   toggleStarredCharacter,
-
 }) => {
-  
-  // call get_characters query to get all characters
-  const { loading, error, data } = useQuery(GET_CHARACTERS);
-
   const [searchTerm, setSearchTerm] = useState("");
   const [openAdjustments, setOpenAdjustments] = useState(false);
   const [filters, setFilters] = useState({ character: "All", specie: "All" });
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const { loading, error, data } = useQuery(GET_CHARACTERS, {
+    variables: { page: currentPage },
+  });
+
+  const sortByName = (a: Character, b: Character) =>
+    sortOrder === "asc"
+      ? a.name.localeCompare(b.name)
+      : b.name.localeCompare(a.name);
 
   const handleFilterChange = (newFilters: {
     character: string;
@@ -43,8 +49,6 @@ const SideBar: React.FC<SideBarProps> = ({
   const [getCharacters, { data: charactersData, loading: charactersLoading }] =
     useLazyQuery(GET_CHARACTER);
 
-
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchTerm(value);
@@ -54,7 +58,7 @@ const SideBar: React.FC<SideBarProps> = ({
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
   if (error) return <p>Error fetching characters</p>;
 
   // Choose which data to display
@@ -103,10 +107,15 @@ const SideBar: React.FC<SideBarProps> = ({
       return true;
     });
 
+  const sortedStarredCharacters = [...filteredStarredCharacters].sort(
+    sortByName
+  );
+  const sortedNonStarredCharacters = [...filteredNonStarredCharacters].sort(
+    sortByName
+  );
+
   return (
-    <div
-  className="bg-gray-100 px-4 h-screen max-h-screen overflow-y-auto w-full lg:w-[375px]"
->
+    <div className="bg-gray-100 px-4 h-screen max-h-screen overflow-y-auto w-full lg:w-[375px]">
       <h2 className="font-bold text-[24px] py-5 text-[#1F2937]">
         Rick and Morty list
       </h2>
@@ -118,21 +127,59 @@ const SideBar: React.FC<SideBarProps> = ({
         setOpenAdjustments={setOpenAdjustments}
       />
 
+      <div className="flex flex-col gap-2 mb-4">
+        <div className="flex justify-between items-center">
+          <label className="text-sm text-gray-600">Sort by:</label>
+          <select
+            value={sortOrder}
+            onChange={(e) => setSortOrder(e.target.value as "asc" | "desc")}
+            className="text-sm border rounded px-2 py-1"
+          >
+            <option value="asc">Name (A-Z)</option>
+            <option value="desc">Name (Z-A)</option>
+          </select>
+        </div>
+        <div className="flex justify-between items-center">
+          <label className="text-sm text-gray-600">Page:</label>
+          <select
+            value={currentPage}
+            onChange={(e) => setCurrentPage(Number(e.target.value))}
+            className="text-sm border rounded px-2 py-1"
+          >
+            {Array.from(
+              { length: data?.characters?.info?.pages || 1 },
+              (_, i) => (
+                <option key={i + 1} value={i + 1}>
+                  Page {i + 1}
+                </option>
+              )
+            )}
+          </select>
+        </div>
+        <p className="text-xs text-gray-500 text-right">
+          Showing page {currentPage} of {data?.characters?.info?.pages}
+        </p>
+      </div>
+
       {/* desktop adjustments menu */}
 
       {openAdjustments && (
         <>
-          <AdjustmentsMenu onFilter={handleFilterChange} openAdjustments={openAdjustments} setOpenAdjustments={setOpenAdjustments} />
+          <AdjustmentsMenu
+            onFilter={handleFilterChange}
+            openAdjustments={openAdjustments}
+            setOpenAdjustments={setOpenAdjustments}
+          />
         </>
       )}
 
       {/* Starred Characters */}
-      {filteredStarredCharacters.length > 0 && (
+      {sortedStarredCharacters.length > 0 && (
         <>
           <h3 className="font-semibold text-[12px] py-3">
-            STARRED CHARACTERS ({filteredStarredCharacters.length})
+            STARRED CHARACTERS ({sortedStarredCharacters.length})
           </h3>
-          {filteredStarredCharacters.map((char) => (
+          {sortedStarredCharacters.map((char) => (
             <CharacterCard
               key={char.id}
               id={char.id}
@@ -164,7 +211,7 @@ const SideBar: React.FC<SideBarProps> = ({
         </div>
       )}
 
-      {filteredNonStarredCharacters.map((char: Character) => (
+      {sortedNonStarredCharacters.map((char: Character) => (
         <CharacterCard
           key={char.id}
           id={char.id}

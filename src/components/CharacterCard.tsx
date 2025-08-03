@@ -9,6 +9,7 @@ interface CharacterProps {
   isStarred?: boolean;
   handleSelectCharacter: () => void;
   selectedCharacter?: string | null;
+  
 }
 
 const CharacterCard: React.FC<CharacterProps> = ({
@@ -29,6 +30,7 @@ const CharacterCard: React.FC<CharacterProps> = ({
         isSelected ? "bg-[#DDD6F3]" : "hover:bg-[#EEE3FF]"
       }`}
       style={{ borderRadius: "8px" }}
+      onClick={handleSelectCharacter}
     >
       <div
         className="h-full flex items-center gap-[16px] border-t-2 border-[#E5E7EB] px-[20px] py-[16px]"
@@ -40,13 +42,13 @@ const CharacterCard: React.FC<CharacterProps> = ({
           alt={name}
           width={32}
           height={32}
-          onClick={handleSelectCharacter}
+        
         />
 
         {/* Name & Species */}
         <div
           className="flex flex-col justify-center overflow-hidden flex-grow"
-          onClick={handleSelectCharacter}
+       
         >
           <h3 className="text-[16px] font-semibold text-[#111827] truncate">
             {name}
@@ -58,7 +60,10 @@ const CharacterCard: React.FC<CharacterProps> = ({
 
         {/* Star Button */}
         <button
-          onClick={handleStarClick}
+          onClick={(e) => {
+            e.stopPropagation(); 
+            handleStarClick();
+          }}
           className="text-gray-400 hover:bg-gray-200 hover:text-gray-600 rounded-full p-2 transition-colors duration-300 flex-shrink-0"
         >
           <svg

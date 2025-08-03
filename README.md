@@ -5,7 +5,13 @@ This is a React + TypeScript application that allows users to explore characters
 ## Features
 🔍 Search characters by name
 
+🎯 Order the Characters by ascending or descending order
+
+🎯 Choose the page where you want to get the charcaters from
+
 🎯 Filter by character status and species
+
+🎯 Write comments on any selected character
 
 ❤️ Mark characters as favorites (stored locally)
 
@@ -48,17 +54,23 @@ Get character details including image, location, species, and origin
 Example GraphQL query used:
 
 graphql
- 1. This query is used to retrieve the characters from the API on page 1: 
-```graphql 
-    query { 
-      characters(page: 1) { 
-        results { 
-          id 
-          name 
-          species 
-          image } } } 
+ 1. This query is used to retrieve the characters from the API on any page selected, the defaul;t is 1: 
+``` query GetCharacters($page: Int) {
+    characters(page: $page) {
+      results {
+        id
+        name
+        image
+        species
+      }
+      info {
+        pages
+        count
+      }
+    }
+  }
 ``` 
-2. this query is used to get the charcater by the name whe using the search input  
+2. this query is used to get the charcater by the name when using the search input  
 ```
  query GetCharacter($name: String!) {
     characters(filter: { name: $name }) {
