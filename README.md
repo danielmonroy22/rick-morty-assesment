@@ -48,18 +48,7 @@ Get character details including image, location, species, and origin
 Example GraphQL query used:
 
 graphql
-1. 
-- this query is used to retrieve the charcaters from the api in page 1
-` query {
-    characters(page: 1) {
-      results {
-        id
-        name
-        species
-        image
-      }
-    }
-  } `
+<pre> 1. This query is used to retrieve the characters from the API on page 1: ```graphql query { characters(page: 1) { results { id name species image } } } ``` </pre>
 2. 
 - this query is used to get the charcater by the name whe using the search input  
  query GetCharacter($name: String!) {
